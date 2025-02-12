@@ -1,0 +1,731 @@
+[
+    {
+        "id": "26590328783b3cc7",
+        "type": "tab",
+        "label": "TM Controller",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7db2a9d5747c8c58",
+        "type": "tab",
+        "label": "Tests",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e43a4c01dc7bbe0f",
+        "type": "tab",
+        "label": "Backup",
+        "disabled": false,
+        "info": "This code is no longer in use",
+        "env": []
+    },
+    {
+        "id": "44cb155f5a33ea4b",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "68c706a6.dbd968",
+        "type": "mqtt-broker",
+        "name": "timemachinecontroller",
+        "broker": "192.168.200.100",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "40a8c603.89d9a8",
+        "type": "link out",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "links": [
+            "2f6752d9.8ed25e",
+            "7af10ed8.14682"
+        ],
+        "x": 755,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "fe69cde8.1338b",
+        "type": "function",
+        "z": "26590328783b3cc7",
+        "name": "backwards",
+        "func": "msg.action = \"backwards\";\nmsg.speed = Math.floor(Math.random() * 3);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "436e7ed9.0955"
+            ]
+        ]
+    },
+    {
+        "id": "3f43923f.50caee",
+        "type": "function",
+        "z": "26590328783b3cc7",
+        "name": "forward",
+        "func": "msg.action = \"forward\";\nmsg.speed = Math.floor(Math.random() * 3);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 120,
+        "wires": [
+            [
+                "9969bd82.33102",
+                "40a8c603.89d9a8"
+            ]
+        ]
+    },
+    {
+        "id": "6edba94c.33d188",
+        "type": "function",
+        "z": "26590328783b3cc7",
+        "name": "stop",
+        "func": "msg.action = \"stop\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 890,
+        "y": 120,
+        "wires": [
+            [
+                "40a8c603.89d9a8"
+            ]
+        ]
+    },
+    {
+        "id": "436e7ed9.0955",
+        "type": "delay",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "4",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "3f43923f.50caee"
+            ]
+        ]
+    },
+    {
+        "id": "9969bd82.33102",
+        "type": "delay",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "pauseType": "random",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "2",
+        "randomLast": "4",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "6edba94c.33d188"
+            ]
+        ]
+    },
+    {
+        "id": "5a454335.0297cc",
+        "type": "comment",
+        "z": "26590328783b3cc7",
+        "name": "Readme",
+        "info": "This video controller script uses a web hook (GET) to read and parse requests, \nand play a video on TMMONITOR using a MQTT message.\nIt also randomly moves the crazy clock handles.",
+        "x": 100,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7b89342e.40640c",
+        "type": "comment",
+        "z": "26590328783b3cc7",
+        "name": "Readme",
+        "info": "This part controls the crazy clock handle",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "114cef7c.1dbea1",
+        "type": "function",
+        "z": "26590328783b3cc7",
+        "name": "Display video description",
+        "func": "//redirect back to the calling page\n//if (typeof msg.req.query.redirectURL !== 'undefined' && msg.req.query.redirectURL !== null){\n    msg.statusCode = 303; //\n    msg.headers = {\n    Location: \"http://192.168.200.110/\" + msg.payload.videoDescription\n    }\n    node.error (\"Redirect to \" + \"http://192.168.200.110/\" + msg.payload.videoDescription);\n    //delete msg.payload;\n    return msg;\n//}\n//return;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 420,
+        "wires": [
+            [
+                "1bf1e245.92d39e"
+            ]
+        ]
+    },
+    {
+        "id": "4fd1e95f.d81fa8",
+        "type": "function",
+        "z": "26590328783b3cc7",
+        "name": "play video",
+        "func": "msg.topic = \"videoplayer\";\nmsg.payload = {\"action\" : \"play\",\n                'video': '/home/pi/videos/' + msg.payload.videoID,\n                'timestamp' : Date.now()}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 340,
+        "wires": [
+            [
+                "5f03d05d.4ee16",
+                "5495b7f6.2dcd68"
+            ]
+        ]
+    },
+    {
+        "id": "28ea7327.24a65c",
+        "type": "http response",
+        "z": "26590328783b3cc7",
+        "name": "http response",
+        "statusCode": "",
+        "headers": {},
+        "x": 560,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "5f03d05d.4ee16",
+        "type": "mqtt out",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "68c706a6.dbd968",
+        "x": 530,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c15a47f.10437b8",
+        "type": "comment",
+        "z": "26590328783b3cc7",
+        "name": "Video description",
+        "info": "This part redirects the web page on the Dashboardcontroller to a small description page,\nwhen the video is playing",
+        "x": 740,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ec57c5f7.7ab8a8",
+        "type": "comment",
+        "z": "26590328783b3cc7",
+        "name": "Play video",
+        "info": "This part builds the command to play the video and\nsends it to tmmonitor to play it via a omxplayer pipe.\n",
+        "x": 720,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5495b7f6.2dcd68",
+        "type": "debug",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 550,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1bf1e245.92d39e",
+        "type": "debug",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "328d4a79607f5ca2",
+        "type": "http in",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "url": "/video",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 320,
+        "wires": [
+            [
+                "4fd1e95f.d81fa8",
+                "0192e2e58d3856af",
+                "0c63cc43c2dd94cf"
+            ]
+        ]
+    },
+    {
+        "id": "0192e2e58d3856af",
+        "type": "debug",
+        "z": "26590328783b3cc7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 250,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "82433ba0bd65d248",
+        "type": "comment",
+        "z": "26590328783b3cc7",
+        "name": "192.168.200.100",
+        "info": "",
+        "x": 300,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "0c63cc43c2dd94cf",
+        "type": "function",
+        "z": "26590328783b3cc7",
+        "name": "Redirect to begin",
+        "func": "msg.statusCode = 303;\nmsg.headers = {Location: \"http://localhost/\"}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "28ea7327.24a65c"
+            ]
+        ]
+    },
+    {
+        "id": "3b554cb329e2f8e2",
+        "type": "mqtt in",
+        "z": "7db2a9d5747c8c58",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "44cb155f5a33ea4b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "6f71ee1dbd66cdd5"
+            ]
+        ]
+    },
+    {
+        "id": "6f71ee1dbd66cdd5",
+        "type": "debug",
+        "z": "7db2a9d5747c8c58",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b3a17472c41db930",
+        "type": "inject",
+        "z": "7db2a9d5747c8c58",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "96a57555bb63949f"
+            ]
+        ]
+    },
+    {
+        "id": "96a57555bb63949f",
+        "type": "mqtt out",
+        "z": "7db2a9d5747c8c58",
+        "name": "",
+        "topic": "test",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "44cb155f5a33ea4b",
+        "x": 330,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ef8c645a84700dc4",
+        "type": "debug",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 970,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2546c4e578ee64ac",
+        "type": "http response",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "http response",
+        "statusCode": "",
+        "headers": {},
+        "x": 580,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0ae0df363404b292",
+        "type": "function",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "play video",
+        "func": "if (typeof msg.req.query.videoID !== 'undefined' && msg.req.query.videoID !== null){\n    //stop any playing video\n    msg.payload = \"/home/pi/scripts/stop_omxplayer.sh\";\n    node.send (msg);\n    //Load the requested video on omxplayer\n    node.status ({Text: \"Playing video \" + msg.req.query.videoID});\n    msg.payload = \"/usr/bin/omxplayer -b /home/pi/videos/\" + msg.req.query.videoID;\n    node.send (msg);\n    //Play the requested video on omxplayer\n    msg.payload = \"echo -n . >/tmp/cmd\";\n    node.send (msg);\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "f0256ec13f77fef7"
+            ]
+        ]
+    },
+    {
+        "id": "b623c5a3763f6161",
+        "type": "function",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "Redirect",
+        "func": "//redirect back to the calling page\nif (typeof msg.req.query.redirectURL !== 'undefined' && msg.req.query.redirectURL !== null){\n    msg.statusCode = 303; //\n    msg.headers = {\n    Location: \"http://192.168.200.110/\" + msg.req.query.redirectURL\n    }\n    node.error (\"Redirect to \" + \"http://192.169.200.110/\" + msg.req.query.redirectURL);\n    delete msg.payload;\n    return msg;\n}\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "2546c4e578ee64ac",
+                "918dfe075f65d546"
+            ]
+        ]
+    },
+    {
+        "id": "918dfe075f65d546",
+        "type": "debug",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 570,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ca7859f8409b96a6",
+        "type": "exec",
+        "z": "e43a4c01dc7bbe0f",
+        "command": "ssh pi@192.168.200.128 ",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "oldrc": false,
+        "name": "Run remote command tmmonitor",
+        "x": 700,
+        "y": 340,
+        "wires": [
+            [
+                "ef8c645a84700dc4"
+            ],
+            [
+                "462aa38559788ee1"
+            ],
+            [
+                "462aa38559788ee1"
+            ]
+        ]
+    },
+    {
+        "id": "f0256ec13f77fef7",
+        "type": "link out",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "links": [
+            "7129d70aa0b80655"
+        ],
+        "x": 535,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7129d70aa0b80655",
+        "type": "link in",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "run command tmmonitor",
+        "links": [
+            "f0256ec13f77fef7",
+            "c68f72669fb4896f"
+        ],
+        "x": 595,
+        "y": 200,
+        "wires": [
+            [
+                "ca7859f8409b96a6",
+                "cea84072a74cd0d8"
+            ]
+        ]
+    },
+    {
+        "id": "c68f72669fb4896f",
+        "type": "link out",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "links": [
+            "7129d70aa0b80655"
+        ],
+        "x": 275,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c37b3276fa86d7bd",
+        "type": "inject",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "Pause video",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "echo -n p >/tmp/cmd",
+        "payloadType": "str",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "c68f72669fb4896f"
+            ]
+        ]
+    },
+    {
+        "id": "cea84072a74cd0d8",
+        "type": "debug",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 750,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8b07a62b54844404",
+        "type": "comment",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "Readme",
+        "info": "This part redirects the web page on the Dashboardcontroller to a small description page, when the video is playing",
+        "x": 820,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "156610dab4751934",
+        "type": "comment",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "Readme",
+        "info": "This part builds the command to play the video and sends it to tmmonitor to play it via a omxplayer pipe",
+        "x": 820,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "dc3a9550ac25a82b",
+        "type": "debug",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 350,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "5a42973dc9e75e52",
+        "type": "inject",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "Pause video",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/pi/scripts/pause_omxplayer.sh",
+        "payloadType": "str",
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "c68f72669fb4896f"
+            ]
+        ]
+    },
+    {
+        "id": "d92b6216f1e71230",
+        "type": "inject",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "Stop video",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/pi/scripts/stop_omxplayer.sh",
+        "payloadType": "str",
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "c68f72669fb4896f"
+            ]
+        ]
+    },
+    {
+        "id": "462aa38559788ee1",
+        "type": "debug",
+        "z": "e43a4c01dc7bbe0f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 970,
+        "y": 360,
+        "wires": []
+    }
+]
